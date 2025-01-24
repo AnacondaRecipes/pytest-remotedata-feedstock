@@ -18,7 +18,7 @@ requirements:
   host:
     - python
     - pip
-    - setuptols
+    - setuptools
     - wheel
     - setuptools_scm
   run:
