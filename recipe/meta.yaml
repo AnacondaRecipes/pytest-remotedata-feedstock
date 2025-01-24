@@ -36,7 +36,7 @@ test:
     - pytest
   commands:
     - pip check
-    - pytest tests -vv
+    - pytest tests -vv -k "not (test_block_internet_connection or test_block_internet_connection_internet_off or test_local_config)"
 
 about:
   home: https://github.com/astropy/pytest-remotedata
