@@ -18,14 +18,25 @@ requirements:
   host:
     - python
     - pip
+    - setuptols
+    - wheel
+    - setuptools_scm
   run:
     - python
-    - pytest >=3.1
-    - six
+    - pytest >=4.6
+    - packaging
 
 test:
+  source_files:
+    - tests/
   imports:
     - pytest_remotedata
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest tests -vv
 
 about:
   home: https://github.com/astropy/pytest-remotedata
