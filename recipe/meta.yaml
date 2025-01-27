@@ -1,44 +1,54 @@
 {% set name = "pytest-remotedata" %}
-{% set version = "0.3.2" %}
-{% set git_url = "https://github.com/astropy/pytest-remotedata" %}
-{% set sha256 = "e20c58d4b7c359c4975dc3c3d3d67be0905180d2368be0be3ae09b15a136cfc0" %}
+{% set version = "0.4.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 05c08bf638cdd1ed66eb01738a1647c3c714737c3ec3abe009d2c1f793b4bb59
 
 build:
   number: 0
-  script: python -m pip install --no-deps --ignore-installed .
+  script: python -m pip install . --no-deps --no-build-isolation
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
+    - setuptools_scm
   run:
     - python
-    - pytest >=3.1
-    - six
+    - pytest >=4.6
+    - packaging
 
 test:
+  source_files:
+    - tests/
   imports:
     - pytest_remotedata
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest tests -vv -k "not (test_block_internet_connection or test_block_internet_connection_internet_off or test_local_config)"
 
 about:
-  home: {{ git_url }}
-  license: BSD
+  home: https://github.com/astropy/pytest-remotedata
+  license: BSD-3-Clause
+  license_family: BSD
+  license_file: LICENSE
   summary: 'Pytest plugin for controlling remote data access'
   description: |
     This package provides a plugin for the pytest framework that allows
     developers to control unit tests that require access to data from the
     internet.
-  doc_url: {{ git_url }}
-  dev_url: {{ git_url }}
+  doc_url: https://github.com/astropy/pytest-remotedata
+  dev_url: https://github.com/astropy/pytest-remotedata
 
 extra:
   recipe-maintainers:
